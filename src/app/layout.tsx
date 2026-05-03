@@ -7,6 +7,7 @@ import { Navigation } from "@/components/navigation";
 import { LoaderCurtain } from "@/components/loader-curtain";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { AmbientToggle } from "@/components/ui/ambient-toggle";
+import { Concierge } from "@/components/ui/concierge";
 
 const display = Italiana({
   subsets: ["latin"],
@@ -69,6 +70,7 @@ export default function RootLayout({
         <Cursor />
         <ScrollProgress />
         <AmbientToggle />
+        <Concierge />
         <SmoothScroll>
           <Navigation />
           <main className="relative">{children}</main>

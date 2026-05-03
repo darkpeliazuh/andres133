@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/magnetic";
 import { MichelinStar } from "@/components/ui/ornaments";
+import { LiveStatusBadge } from "@/components/ui/live-status";
 
 const links = [
   { href: "#story", label: "The House" },
@@ -99,7 +100,7 @@ export function Navigation() {
             </a>
           </Magnetic>
 
-          <nav className="hidden items-center gap-9 lg:flex">
+          <nav className="hidden items-center gap-7 lg:flex">
             {links.slice(0, -1).map((link) => (
               <a
                 key={link.href}
@@ -110,6 +111,8 @@ export function Navigation() {
                 <span className="absolute -bottom-2 left-0 h-px w-0 bg-gold-300 transition-all duration-500 group-hover:w-full" />
               </a>
             ))}
+            <span className="block h-4 w-px bg-gold-400/30" />
+            <LiveStatusBadge />
           </nav>
 
           <div className="flex items-center gap-3">

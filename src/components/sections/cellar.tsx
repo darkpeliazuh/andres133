@@ -14,6 +14,7 @@ import { Counter } from "@/components/ui/counter";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { OrnateFrame, FleurDeLis } from "@/components/ui/ornaments";
+import { Tilt3D } from "@/components/ui/tilt-3d";
 import { cn } from "@/lib/utils";
 
 export function Cellar() {
@@ -236,10 +237,12 @@ function BentoCard({
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className={cn("group relative", className)}
     >
-      <SpotlightCard className={cn("relative h-full w-full overflow-hidden border border-gold-400/15", innerClassName)}>
-        {children}
-        {withBeam && <BorderBeam />}
-      </SpotlightCard>
+      <Tilt3D max={6} scale={1.015} className="h-full">
+        <SpotlightCard className={cn("relative h-full w-full overflow-hidden border border-gold-400/15", innerClassName)}>
+          {children}
+          {withBeam && <BorderBeam />}
+        </SpotlightCard>
+      </Tilt3D>
     </motion.div>
   );
 }

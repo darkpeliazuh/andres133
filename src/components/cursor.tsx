@@ -2,10 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type CursorState = "idle" | "hover" | "label";
+
 export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const [hovering, setHovering] = useState(false);
+  const labelRef = useRef<HTMLSpanElement>(null);
+  const [state, setState] = useState<CursorState>("idle");
+  const [label, setLabel] = useState("");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -35,12 +39,21 @@ export function Cursor() {
 
     const over = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+      const labelEl = target.closest<HTMLElement>("[data-cursor-text]");
+      if (labelEl) {
+        const text = labelEl.dataset.cursorText ?? "";
+        setLabel(text);
+        setState("label");
+        return;
+      }
       if (
-        target.closest("a, button, [data-cursor='hover'], input, textarea, select")
+        target.closest(
+          "a, button, [data-cursor='hover'], input, textarea, select"
+        )
       ) {
-        setHovering(true);
+        setState("hover");
       } else {
-        setHovering(false);
+        setState("idle");
       }
     };
 
@@ -65,18 +78,29 @@ export function Cursor() {
         ref={dotRef}
         className={`pointer-events-none fixed left-0 top-0 z-[100] h-1.5 w-1.5 rounded-full bg-gold-300 transition-opacity duration-300 ${
           visible ? "opacity-100" : "opacity-0"
-        }`}
+        } ${state === "label" ? "opacity-0" : ""}`}
       />
       <div
         ref={ringRef}
-        className={`pointer-events-none fixed left-0 top-0 z-[100] rounded-full border border-gold-300/60 transition-[width,height,opacity,background-color] duration-300 ease-out ${
+        className={`pointer-events-none fixed left-0 top-0 z-[100] grid place-items-center rounded-full border border-gold-300/60 transition-[width,height,opacity,background-color,padding] duration-300 ease-out ${
           visible ? "opacity-100" : "opacity-0"
         } ${
-          hovering
+          state === "label"
+            ? "h-auto w-auto min-h-[3.25rem] min-w-[3.25rem] border-gold-300 bg-noir-900/90 px-4 py-2 backdrop-blur-md"
+            : state === "hover"
             ? "h-14 w-14 bg-gold-400/10 backdrop-blur-sm"
             : "h-9 w-9"
         }`}
-      />
+      >
+        <span
+          ref={labelRef}
+          className={`whitespace-nowrap font-sans text-[10px] uppercase tracking-[0.4em] text-gold-200 transition-opacity duration-200 ${
+            state === "label" ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {label}
+        </span>
+      </div>
     </>
   );
 }

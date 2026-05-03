@@ -74,7 +74,7 @@ export function Gallery() {
               key={i}
               style={{ y: i % 2 === 0 ? y1 : y2 }}
               className={`group relative overflow-hidden ${img.span} reveal`}
-              data-cursor="hover"
+              data-cursor-text={`View · №${String(i + 1).padStart(2, "0")}`}
             >
               <div className="relative h-full min-h-[16rem] w-full">
                 <Image

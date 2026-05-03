@@ -145,7 +145,7 @@ export function Hero() {
           className="mt-12 flex flex-col items-center gap-6 sm:flex-row"
         >
           <Magnetic strength={0.4}>
-            <a href="#reserve" className="btn-gold">
+            <a href="#reserve" className="btn-gold" data-cursor-text="Reserve">
               <span>Reserve a table</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
@@ -153,6 +153,7 @@ export function Hero() {
           <Magnetic strength={0.3}>
             <a
               href="#menu"
+              data-cursor-text="Read the menu"
               className="group inline-flex items-center gap-3 font-sans text-[11px] uppercase tracking-[0.4em] text-ivory/80 transition-colors hover:text-gold-300"
             >
               <span className="h-px w-10 bg-gold-300/50 transition-all duration-500 group-hover:w-16 group-hover:bg-gold-300" />
