@@ -4,6 +4,22 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/magnetic";
+import { OrnateFrame } from "@/components/ui/ornaments";
+import { BorderBeam } from "@/components/ui/border-beam";
+import {
+  CalendarBlank,
+  Clock,
+  Users,
+  EnvelopeSimple,
+  User,
+  Phone,
+  Confetti,
+  NotePencil,
+  CheckCircle,
+  WarningCircle,
+  ArrowUpRight,
+} from "@phosphor-icons/react/dist/ssr";
 
 type FormState = {
   name: string;
@@ -96,7 +112,8 @@ export function Reserve() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-noir-900 via-noir-900/30 to-transparent" />
-              <div className="pointer-events-none absolute inset-3 border border-gold-400/20" />
+              <BorderBeam duration={14} />
+              <OrnateFrame className="text-gold-300/60" />
               <div className="absolute bottom-6 left-6 right-6 text-ivory">
                 <p className="font-display text-2xl">Two seatings nightly</p>
                 <p className="mt-2 font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/70">
@@ -125,7 +142,7 @@ export function Reserve() {
           noValidate
         >
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Field label="Full name" required>
+            <Field label="Full name" required icon={<User weight="thin" />}>
               <input
                 required
                 type="text"
@@ -135,7 +152,7 @@ export function Reserve() {
                 placeholder="Your name"
               />
             </Field>
-            <Field label="Email" required>
+            <Field label="Email" required icon={<EnvelopeSimple weight="thin" />}>
               <input
                 required
                 type="email"
@@ -145,7 +162,7 @@ export function Reserve() {
                 placeholder="you@domain.com"
               />
             </Field>
-            <Field label="Telephone">
+            <Field label="Telephone" icon={<Phone weight="thin" />}>
               <input
                 type="tel"
                 value={form.phone}
@@ -154,7 +171,7 @@ export function Reserve() {
                 placeholder="+33 …"
               />
             </Field>
-            <Field label="Party size" required>
+            <Field label="Party size" required icon={<Users weight="thin" />}>
               <select
                 required
                 value={form.partySize}
@@ -168,7 +185,7 @@ export function Reserve() {
                 ))}
               </select>
             </Field>
-            <Field label="Date" required>
+            <Field label="Date" required icon={<CalendarBlank weight="thin" />}>
               <input
                 required
                 type="date"
@@ -177,7 +194,7 @@ export function Reserve() {
                 className={inputClass}
               />
             </Field>
-            <Field label="Seating">
+            <Field label="Seating" icon={<Clock weight="thin" />}>
               <div className="flex flex-wrap gap-2 pt-2">
                 {times.map((t) => (
                   <button
@@ -230,7 +247,7 @@ export function Reserve() {
                 ))}
               </div>
             </Field>
-            <Field label="Occasion">
+            <Field label="Occasion" icon={<Confetti weight="thin" />}>
               <input
                 type="text"
                 value={form.occasion}
@@ -239,7 +256,7 @@ export function Reserve() {
                 placeholder="Anniversary, business, …"
               />
             </Field>
-            <Field label="Allergies / notes">
+            <Field label="Allergies / notes" icon={<NotePencil weight="thin" />}>
               <input
                 type="text"
                 value={form.notes}
@@ -254,38 +271,43 @@ export function Reserve() {
             <p className="font-sans text-[10px] uppercase tracking-[0.4em] text-ivory/45">
               By submitting, you agree to our reservation policy.
             </p>
-            <button
-              type="submit"
-              disabled={status.kind === "loading"}
-              className={cn(
-                "btn-gold disabled:opacity-50 disabled:cursor-not-allowed"
-              )}
-            >
-              <span>
-                {status.kind === "loading"
-                  ? "Sending…"
-                  : "Request reservation"}
-              </span>
-              <span aria-hidden>→</span>
-            </button>
+            <Magnetic strength={0.35}>
+              <button
+                type="submit"
+                disabled={status.kind === "loading"}
+                className={cn(
+                  "btn-gold disabled:opacity-50 disabled:cursor-not-allowed"
+                )}
+              >
+                <span>
+                  {status.kind === "loading"
+                    ? "Sending…"
+                    : "Request reservation"}
+                </span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </button>
+            </Magnetic>
           </div>
 
           {status.kind === "success" && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-8 border border-gold-400/30 bg-gold-400/5 p-5 font-serif text-base italic text-gold-100"
+              className="relative mt-8 flex items-start gap-4 overflow-hidden border border-gold-400/30 bg-gold-400/5 p-5 font-serif text-base italic text-gold-100"
             >
-              {status.message}
+              <CheckCircle weight="thin" className="h-6 w-6 shrink-0 text-gold-300" />
+              <span>{status.message}</span>
+              <BorderBeam duration={5} />
             </motion.div>
           )}
           {status.kind === "error" && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-8 border border-wine-500/40 bg-wine-700/20 p-5 font-serif text-base italic text-ivory/90"
+              className="mt-8 flex items-start gap-4 border border-wine-500/40 bg-wine-700/20 p-5 font-serif text-base italic text-ivory/90"
             >
-              {status.message}
+              <WarningCircle weight="thin" className="h-6 w-6 shrink-0 text-wine-400" />
+              <span>{status.message}</span>
             </motion.div>
           )}
         </form>
@@ -302,17 +324,26 @@ function Field({
   children,
   required,
   className,
+  icon,
 }: {
   label: string;
   children: React.ReactNode;
   required?: boolean;
   className?: string;
+  icon?: React.ReactNode;
 }) {
   return (
     <label className={cn("block", className)}>
-      <span className="font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/80">
-        {label}
-        {required && <span className="ml-1 text-gold-400">*</span>}
+      <span className="flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/80">
+        {icon && (
+          <span className="grid h-4 w-4 place-items-center text-gold-300">
+            {icon}
+          </span>
+        )}
+        <span>
+          {label}
+          {required && <span className="ml-1 text-gold-400">*</span>}
+        </span>
       </span>
       <span className="mt-2 block">{children}</span>
     </label>

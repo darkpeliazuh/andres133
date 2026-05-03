@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { FleurDeLis } from "@/components/ui/ornaments";
 
 const quotes = [
   {
@@ -77,7 +79,7 @@ export function Press() {
           </div>
 
           <div className="md:col-span-7 md:pt-12">
-            <ul className="space-y-12">
+            <ul className="space-y-8">
               {quotes.map((q, i) => (
                 <motion.li
                   key={i}
@@ -85,26 +87,31 @@ export function Press() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ delay: i * 0.12, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative pl-10"
                 >
-                  <span
-                    aria-hidden
-                    className="absolute -left-2 -top-6 font-display text-[8rem] leading-none text-gold-400/20"
+                  <SpotlightCard
+                    glowSize={420}
+                    className="relative border border-gold-400/15 p-8 md:p-10"
                   >
-                    “
-                  </span>
-                  <p className="font-serif text-2xl italic leading-snug text-ivory/85 md:text-3xl">
-                    {q.body}
-                  </p>
-                  <div className="mt-6 flex items-center gap-4">
-                    <span className="block h-px w-10 bg-gold-300/60" />
-                    <span className="font-sans text-[11px] uppercase tracking-[0.4em] text-gold-300">
-                      {q.src}
+                    <span
+                      aria-hidden
+                      className="absolute -left-2 -top-12 font-display text-[10rem] leading-none text-gold-400/20"
+                    >
+                      “
                     </span>
-                    <span className="font-sans text-[10px] tracking-[0.3em] text-ivory/40">
-                      · {q.by}
-                    </span>
-                  </div>
+                    <FleurDeLis className="absolute right-6 top-6 h-5 w-5 text-gold-300/40" />
+                    <p className="relative font-serif text-2xl italic leading-snug text-ivory/85 md:text-3xl">
+                      {q.body}
+                    </p>
+                    <div className="mt-6 flex items-center gap-4">
+                      <span className="block h-px w-10 bg-gold-300/60" />
+                      <span className="font-sans text-[11px] uppercase tracking-[0.4em] text-gold-300">
+                        {q.src}
+                      </span>
+                      <span className="font-sans text-[10px] tracking-[0.3em] text-ivory/40">
+                        · {q.by}
+                      </span>
+                    </div>
+                  </SpotlightCard>
                 </motion.li>
               ))}
             </ul>

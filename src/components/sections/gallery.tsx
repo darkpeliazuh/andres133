@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { OrnateFrame } from "@/components/ui/ornaments";
 
 const images = [
   {
@@ -85,6 +86,7 @@ export function Gallery() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-noir-950/80 via-noir-950/10 to-transparent opacity-90 transition-opacity duration-700 group-hover:opacity-60" />
                 <div className="absolute inset-3 border border-gold-400/0 transition-colors duration-700 group-hover:border-gold-400/50" />
+                <OrnateFrame className="opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
                 <div className="absolute bottom-4 left-4 z-10 translate-y-2 opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100">
                   <span className="font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300">
                     Plate №{String(i + 1).padStart(2, "0")}

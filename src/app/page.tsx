@@ -3,6 +3,7 @@ import { Marquee } from "@/components/sections/marquee";
 import { Story } from "@/components/sections/story";
 import { Menu } from "@/components/sections/menu";
 import { Chef } from "@/components/sections/chef";
+import { Cellar } from "@/components/sections/cellar";
 import { Gallery } from "@/components/sections/gallery";
 import { Press } from "@/components/sections/press";
 import { Reserve } from "@/components/sections/reserve";
@@ -16,6 +17,7 @@ export default function Home() {
       <Story />
       <Menu />
       <Chef />
+      <Cellar />
       <Gallery />
       <Press />
       <Reserve />

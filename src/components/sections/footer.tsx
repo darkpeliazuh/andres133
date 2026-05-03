@@ -1,5 +1,8 @@
 "use client";
 
+import { OrnateDivider, MichelinStar } from "@/components/ui/ornaments";
+import { InstagramLogo, EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/dist/ssr";
+
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-noir-950 pt-32">
@@ -19,13 +22,20 @@ export function Footer() {
         </h3>
       </div>
 
-      <div className="container-luxe relative grid grid-cols-1 gap-12 border-t border-gold-400/15 py-16 md:grid-cols-12">
+      <div className="container-luxe relative">
+        <OrnateDivider className="mb-16" />
+      </div>
+
+      <div className="container-luxe relative grid grid-cols-1 gap-12 py-4 md:grid-cols-12">
         <div className="md:col-span-4">
           <p className="font-display text-3xl text-ivory">
             Maison <span className="italic font-serif font-light">Noir</span>
           </p>
-          <p className="mt-3 font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/70">
-            ★★★ · Three Michelin Stars
+          <p className="mt-3 flex items-center gap-1 font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/70">
+            <MichelinStar className="h-2.5 w-2.5" />
+            <MichelinStar className="h-2.5 w-2.5" />
+            <MichelinStar className="h-2.5 w-2.5" />
+            <span className="ml-1">· Three Michelin Stars</span>
           </p>
           <p className="mt-8 font-serif text-base italic text-ivory/65">
             "We do not serve dinner. We stage it."
@@ -35,10 +45,10 @@ export function Footer() {
         <FooterCol
           title="The House"
           items={[
-            { label: "12 rue des Saints-Pères", href: "#" },
+            { label: "12 rue des Saints-Pères", href: "#", icon: <MapPin weight="thin" /> },
             { label: "75006 Paris, France", href: "#" },
-            { label: "+33 1 42 60 33 24", href: "tel:+33142603324" },
-            { label: "concierge@maisonnoir.fr", href: "mailto:concierge@maisonnoir.fr" },
+            { label: "+33 1 42 60 33 24", href: "tel:+33142603324", icon: <Phone weight="thin" /> },
+            { label: "concierge@maisonnoir.fr", href: "mailto:concierge@maisonnoir.fr", icon: <EnvelopeSimple weight="thin" /> },
           ]}
         />
 
@@ -55,7 +65,7 @@ export function Footer() {
         <FooterCol
           title="Follow"
           items={[
-            { label: "Instagram", href: "#" },
+            { label: "Instagram", href: "#", icon: <InstagramLogo weight="thin" /> },
             { label: "Le Carnet — newsletter", href: "#" },
             { label: "Press kit", href: "#" },
             { label: "Private events", href: "#" },
@@ -76,7 +86,7 @@ function FooterCol({
   items,
 }: {
   title: string;
-  items: { label: string; href: string }[];
+  items: { label: string; href: string; icon?: React.ReactNode }[];
 }) {
   return (
     <div className="md:col-span-3">
@@ -90,6 +100,11 @@ function FooterCol({
               href={item.href}
               className="group inline-flex items-center gap-2 font-serif text-base text-ivory/75 transition-colors hover:text-gold-200"
             >
+              {item.icon && (
+                <span className="grid h-4 w-4 place-items-center text-gold-300/70">
+                  {item.icon}
+                </span>
+              )}
               <span>{item.label}</span>
               <span
                 aria-hidden

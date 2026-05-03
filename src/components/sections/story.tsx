@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Counter } from "@/components/ui/counter";
+import { Magnetic } from "@/components/ui/magnetic";
+import { OrnateFrame, MichelinStar } from "@/components/ui/ornaments";
+import { ArrowUpRight } from "lucide-react";
 
 export function Story() {
   const ref = useRef<HTMLElement>(null);
@@ -41,7 +45,7 @@ export function Story() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-noir-950/70 via-transparent to-transparent" />
             </motion.div>
-            <div className="pointer-events-none absolute inset-3 border border-gold-400/20" />
+            <OrnateFrame />
             <div className="absolute -bottom-6 left-6 z-10 bg-noir-950 px-4 py-2 font-display text-2xl text-gold-300">
               MCMXXIV
             </div>
@@ -49,18 +53,29 @@ export function Story() {
 
           <div className="mt-12 grid grid-cols-2 gap-8 border-t border-gold-400/15 pt-10">
             {[
-              { n: "100", l: "Years of craft" },
-              { n: "12", l: "Course tasting" },
-              { n: "18", l: "Seats per evening" },
-              { n: "★★★", l: "Since 1971" },
+              { v: 100, suffix: "", l: "Years of craft" },
+              { v: 12, suffix: "", l: "Course tasting" },
+              { v: 18, suffix: "", l: "Seats per evening" },
             ].map((item, i) => (
               <div key={i} className="reveal">
-                <div className="font-display text-4xl text-ivory">{item.n}</div>
+                <div className="font-display text-4xl text-ivory">
+                  <Counter value={item.v} suffix={item.suffix} />
+                </div>
                 <div className="mt-2 font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/70">
                   {item.l}
                 </div>
               </div>
             ))}
+            <div className="reveal">
+              <div className="flex items-center gap-1 font-display text-4xl text-gold-300">
+                <MichelinStar className="h-5 w-5" />
+                <MichelinStar className="h-5 w-5" />
+                <MichelinStar className="h-5 w-5" />
+              </div>
+              <div className="mt-2 font-sans text-[10px] uppercase tracking-[0.4em] text-gold-300/70">
+                Since 1971
+              </div>
+            </div>
           </div>
         </div>
 
@@ -93,10 +108,12 @@ export function Story() {
           </div>
 
           <div className="reveal mt-12">
-            <a href="#chef" className="btn-gold">
-              <span>Meet the chef</span>
-              <span aria-hidden>→</span>
-            </a>
+            <Magnetic strength={0.35}>
+              <a href="#chef" className="btn-gold">
+                <span>Meet the chef</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            </Magnetic>
           </div>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/magnetic";
+import { MichelinStar } from "@/components/ui/ornaments";
 
 const links = [
   { href: "#story", label: "The House" },
@@ -46,35 +48,56 @@ export function Navigation() {
         )}
       >
         <div className="container-luxe flex h-20 items-center justify-between md:h-24">
-          <a
-            href="#top"
-            className="group flex items-center gap-3 text-ivory"
-            aria-label="Maison Noir — home"
-          >
-            <svg
-              viewBox="0 0 32 32"
-              className="h-7 w-7 transition-transform duration-700 group-hover:rotate-180"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.7"
+          <Magnetic strength={0.2}>
+            <a
+              href="#top"
+              className="group flex items-center gap-3 text-ivory"
+              aria-label="Maison Noir — home"
             >
-              <circle cx="16" cy="16" r="14" className="text-gold-400" />
-              <path
-                d="M9 22 L16 9 L23 22 L16 17 Z"
-                className="text-gold-300"
-                fill="currentColor"
-                fillOpacity="0.18"
-              />
-            </svg>
-            <div className="leading-none">
-              <span className="block font-display text-xl tracking-wide">
-                Maison <em className="font-serif italic font-light">Noir</em>
+              <span className="relative grid h-9 w-9 place-items-center">
+                <svg
+                  viewBox="0 0 36 36"
+                  className="absolute inset-0 h-full w-full animate-spin-slow"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    className="text-gold-400/60"
+                    strokeDasharray="2 4"
+                  />
+                </svg>
+                <svg
+                  viewBox="0 0 32 32"
+                  className="relative h-5 w-5 transition-transform duration-700 group-hover:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.8"
+                >
+                  <path
+                    d="M6 26 L16 6 L26 26 L16 18 Z"
+                    className="text-gold-300"
+                    fill="currentColor"
+                    fillOpacity="0.18"
+                  />
+                </svg>
               </span>
-              <span className="font-sans text-[9px] uppercase tracking-[0.45em] text-gold-300/80">
-                ★★★ · Paris
-              </span>
-            </div>
-          </a>
+              <div className="leading-none">
+                <span className="block font-display text-xl tracking-wide">
+                  Maison <em className="font-serif italic font-light">Noir</em>
+                </span>
+                <span className="flex items-center gap-1 font-sans text-[9px] uppercase tracking-[0.45em] text-gold-300/80">
+                  <MichelinStar className="h-2 w-2" />
+                  <MichelinStar className="h-2 w-2" />
+                  <MichelinStar className="h-2 w-2" />
+                  <span>· Paris</span>
+                </span>
+              </div>
+            </a>
+          </Magnetic>
 
           <nav className="hidden items-center gap-9 lg:flex">
             {links.slice(0, -1).map((link) => (
@@ -90,10 +113,12 @@ export function Navigation() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="#reserve" className="hidden md:inline-flex btn-gold">
-              <span>Reserve</span>
-              <span aria-hidden>→</span>
-            </a>
+            <Magnetic strength={0.3}>
+              <a href="#reserve" className="hidden md:inline-flex btn-gold">
+                <span>Reserve</span>
+                <span aria-hidden>→</span>
+              </a>
+            </Magnetic>
             <button
               type="button"
               aria-label="Open menu"

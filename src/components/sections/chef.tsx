@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { OrnateFrame } from "@/components/ui/ornaments";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 export function Chef() {
   const ref = useRef<HTMLElement>(null);
@@ -21,18 +23,19 @@ export function Chef() {
     >
       <div className="container-luxe relative grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-12">
         <div className="md:col-span-6 md:order-2">
-          <div className="relative aspect-[4/5] w-full overflow-hidden">
+          <div className="group relative aspect-[4/5] w-full overflow-hidden">
             <motion.div style={{ y: portraitY }} className="absolute inset-0 h-[120%]">
               <Image
                 src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?auto=format&fit=crop&w=1600&q=85"
                 alt="Chef Élise Marchand in her kitchen"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-[center_30%] grayscale-[35%] saturate-[0.9]"
+                className="object-cover object-[center_30%] grayscale-[35%] saturate-[0.9] transition-all duration-[1500ms] group-hover:grayscale-0 group-hover:saturate-100"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-noir-950 via-noir-950/20 to-transparent" />
             </motion.div>
-            <div className="pointer-events-none absolute inset-4 border border-gold-400/30" />
+            <BorderBeam duration={12} />
+            <OrnateFrame className="text-gold-300/70" />
             <motion.div
               style={{ y: signY }}
               className="absolute -bottom-12 -right-6 z-10 max-w-[14rem] rotate-[-6deg] bg-noir-950 p-6 shadow-deep ring-1 ring-gold-400/20 md:-right-10"

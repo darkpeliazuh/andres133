@@ -4,6 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/magnetic";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { OrnateFrame, FleurDeLis } from "@/components/ui/ornaments";
+import { ArrowUpRight, Wine } from "lucide-react";
 
 type Course = {
   no: string;
@@ -175,7 +179,8 @@ export function Menu() {
               {tab}
             </button>
           ))}
-          <span className="ml-auto self-center font-sans text-[10px] uppercase tracking-[0.4em] text-ivory/40">
+          <span className="ml-auto flex items-center gap-2 self-center font-sans text-[10px] uppercase tracking-[0.4em] text-ivory/40">
+            <Wine className="h-3.5 w-3.5 text-gold-300" />
             wine pairing · +€185
           </span>
         </div>
@@ -198,10 +203,12 @@ export function Menu() {
               Service & one amuse-bouche included
             </p>
           </div>
-          <a href="#reserve" className="btn-gold">
-            <span>Book this evening</span>
-            <span aria-hidden>→</span>
-          </a>
+          <Magnetic strength={0.35}>
+            <a href="#reserve" className="btn-gold">
+              <span>Book this evening</span>
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </Magnetic>
         </div>
       </div>
     </section>
@@ -245,10 +252,14 @@ function CourseRow({ course, index }: { course: Course; index: number }) {
 
       {/* Hover preview image */}
       <motion.div
-        initial={{ opacity: 0, y: 10, scale: 0.9 }}
-        animate={hover ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 10, scale: 0.9 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute right-6 top-1/2 hidden h-44 w-32 -translate-y-1/2 overflow-hidden border border-gold-400/20 shadow-deep lg:block"
+        initial={{ opacity: 0, y: 10, scale: 0.9, rotate: -3 }}
+        animate={
+          hover
+            ? { opacity: 1, y: 0, scale: 1, rotate: -2 }
+            : { opacity: 0, y: 10, scale: 0.9, rotate: -3 }
+        }
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute right-6 top-1/2 hidden h-48 w-36 -translate-y-1/2 overflow-hidden border border-gold-400/30 shadow-deep lg:block"
       >
         <Image
           src={course.image}
@@ -258,6 +269,14 @@ function CourseRow({ course, index }: { course: Course; index: number }) {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-noir-950/60 to-transparent" />
+        <OrnateFrame />
+        {hover && <BorderBeam duration={6} size={140} />}
+        <div className="absolute bottom-2 left-2 right-2 z-10 flex items-center justify-between text-gold-300">
+          <FleurDeLis className="h-3 w-3" />
+          <span className="font-sans text-[8px] uppercase tracking-[0.4em]">
+            {course.no}
+          </span>
+        </div>
       </motion.div>
     </li>
   );

@@ -5,6 +5,8 @@ import { SmoothScroll } from "@/components/smooth-scroll";
 import { Cursor } from "@/components/cursor";
 import { Navigation } from "@/components/navigation";
 import { LoaderCurtain } from "@/components/loader-curtain";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { AmbientToggle } from "@/components/ui/ambient-toggle";
 
 const display = Italiana({
   subsets: ["latin"],
@@ -65,6 +67,8 @@ export default function RootLayout({
       <body className="bg-noir-950 text-ivory antialiased selection:bg-gold-400/30 selection:text-ivory">
         <LoaderCurtain />
         <Cursor />
+        <ScrollProgress />
+        <AmbientToggle />
         <SmoothScroll>
           <Navigation />
           <main className="relative">{children}</main>

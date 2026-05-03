@@ -65,6 +65,11 @@ const config: Config = {
         float: "float 6s ease-in-out infinite",
         "pulse-slow": "pulseSlow 4s ease-in-out infinite",
         "gold-sweep": "goldSweep 3.5s ease-in-out infinite",
+        "spin-slow": "spin 18s linear infinite",
+        "spin-reverse": "spinReverse 28s linear infinite",
+        "border-beam": "borderBeam 9s linear infinite",
+        "aurora": "aurora 18s ease-in-out infinite alternate",
+        "draw": "draw 2.4s ease-in-out forwards",
       },
       keyframes: {
         fadeIn: {
@@ -90,6 +95,31 @@ const config: Config = {
         goldSweep: {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
+        },
+        spinReverse: {
+          "0%": { transform: "rotate(360deg)" },
+          "100%": { transform: "rotate(0deg)" },
+        },
+        borderBeam: {
+          "100%": { offsetDistance: "100%" },
+        },
+        aurora: {
+          "0%": {
+            backgroundPosition: "0% 50%",
+            transform: "translate3d(0, 0, 0) scale(1)",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+            transform: "translate3d(2%, -1%, 0) scale(1.05)",
+          },
+          "100%": {
+            backgroundPosition: "0% 50%",
+            transform: "translate3d(-1%, 1%, 0) scale(1)",
+          },
+        },
+        draw: {
+          "0%": { strokeDashoffset: "1" },
+          "100%": { strokeDashoffset: "0" },
         },
       },
       backgroundImage: {
