@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/magnetic";
 import { OrnateFrame } from "@/components/ui/ornaments";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { Calendar } from "@/components/ui/calendar";
 import {
   CalendarBlank,
   Clock,
@@ -185,14 +186,18 @@ export function Reserve() {
                 ))}
               </select>
             </Field>
-            <Field label="Date" required icon={<CalendarBlank weight="thin" />}>
-              <input
-                required
-                type="date"
-                value={form.date}
-                onChange={(e) => update("date", e.target.value)}
-                className={inputClass}
-              />
+            <Field
+              label="Date"
+              required
+              icon={<CalendarBlank weight="thin" />}
+              className="md:col-span-2"
+            >
+              <div className="mt-3">
+                <Calendar
+                  value={form.date}
+                  onChange={(iso) => update("date", iso)}
+                />
+              </div>
             </Field>
             <Field label="Seating" icon={<Clock weight="thin" />}>
               <div className="flex flex-wrap gap-2 pt-2">

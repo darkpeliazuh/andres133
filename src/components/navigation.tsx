@@ -11,9 +11,10 @@ import { LiveStatusBadge } from "@/components/ui/live-status";
 const links = [
   { href: "#story", label: "The House" },
   { href: "#menu", label: "Menus" },
+  { href: "#carte-vivante", label: "La Carte" },
   { href: "#chef", label: "The Chef" },
   { href: "#gallery", label: "Gallery" },
-  { href: "#press", label: "Press" },
+  { href: "#location", label: "Visit" },
   { href: "#reserve", label: "Reservations" },
 ];
 

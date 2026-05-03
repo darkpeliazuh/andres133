@@ -3,6 +3,7 @@ import { Marquee } from "@/components/sections/marquee";
 import { Tonight } from "@/components/sections/tonight";
 import { Story } from "@/components/sections/story";
 import { Menu } from "@/components/sections/menu";
+import { CarteVivante } from "@/components/sections/carte-vivante";
 import { Chef } from "@/components/sections/chef";
 import { Cellar } from "@/components/sections/cellar";
 import { Gallery } from "@/components/sections/gallery";
@@ -20,6 +21,7 @@ export default function Home() {
       <Tonight />
       <Story />
       <Menu />
+      <CarteVivante />
       <Chef />
       <Cellar />
       <Gallery />

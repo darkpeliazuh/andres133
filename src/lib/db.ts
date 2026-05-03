@@ -35,4 +35,12 @@ export async function ensureSchema(db: Client) {
       status TEXT NOT NULL DEFAULT 'pending'
     )
   `);
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS newsletter (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      email TEXT NOT NULL UNIQUE,
+      source TEXT
+    )
+  `);
 }

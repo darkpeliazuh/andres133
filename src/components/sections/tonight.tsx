@@ -16,7 +16,8 @@ import {
   partsInParis,
   type LiveStatus,
 } from "@/lib/hours";
-import { ArrowUpRight, Moon, Sun } from "lucide-react";
+import { computeCurrentCourse } from "@/lib/courses";
+import { ArrowUpRight, Moon, Sun, ChefHat } from "lucide-react";
 
 const DAY_NAMES = [
   "Sunday",
@@ -70,8 +71,13 @@ export function Tonight() {
             <SeatsCard now={now} />
           </Tilt3D>
 
+          {/* Currently being served */}
+          <Tilt3D className="md:col-span-7" max={4}>
+            <CurrentlyServingCard now={now} />
+          </Tilt3D>
+
           {/* Tonight's seating times */}
-          <Tilt3D className="md:col-span-4" max={5}>
+          <Tilt3D className="md:col-span-5" max={5}>
             <NextSeatingsCard now={now} />
           </Tilt3D>
 
@@ -81,7 +87,7 @@ export function Tonight() {
           </Tilt3D>
 
           {/* Chef's note */}
-          <Tilt3D className="md:col-span-4" max={5}>
+          <Tilt3D className="md:col-span-8" max={5}>
             <ChefNoteCard now={now} />
           </Tilt3D>
         </div>
@@ -294,6 +300,95 @@ function RoomTemperatureCard() {
       </div>
     </CardShell>
   );
+}
+
+function CurrentlyServingCard({ now }: { now: Date | null }) {
+  const result = now ? computeCurrentCourse(now) : null;
+  const isLive = result?.state === "serving";
+  const isBetween = result?.state === "between";
+
+  let title = "Kitchen at rest";
+  let detail = "The pass is dark — the next service hasn't started yet.";
+  let course = null as null | ReturnType<typeof activeCourse>;
+
+  if (result?.state === "serving") {
+    course = activeCourse(result.course);
+    title = `Course ${result.course.no} · ${result.course.name}`;
+    detail = `Plated to all eighteen seats — seating ${result.seating} · minute ${result.minutesIntoSeating}`;
+  } else if (result?.state === "between") {
+    title = result.nextCourse
+      ? `Plating · ${result.nextCourse.name} next`
+      : "Mignardises being arranged";
+    detail = `Between courses — seating ${result.seating}`;
+  } else if (result?.state === "before-service") {
+    title = "Mise-en-place";
+    detail = `Doors open in ${formatMinutes(result.minutesUntil)}`;
+  } else if (result?.state === "after-service") {
+    title = "Service complete";
+    detail = "The dishwashers are on. The candles are blown out.";
+  }
+
+  return (
+    <CardShell withBeam={isLive}>
+      <div className="flex items-center justify-between">
+        <p className="flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.45em] text-gold-300/85">
+          <ChefHat className="h-3.5 w-3.5" strokeWidth={1.4} />
+          On the pass
+        </p>
+        {isLive && (
+          <span className="inline-flex items-center gap-2 font-sans text-[9px] uppercase tracking-[0.45em] text-emerald-300/90">
+            <motion.span
+              className="block h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_2px_rgba(52,211,153,0.6)]"
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            Live
+          </span>
+        )}
+      </div>
+
+      <h3 className="mt-4 font-display text-3xl leading-tight text-ivory md:text-4xl">
+        {title}
+      </h3>
+      <p className="mt-2 font-serif text-base italic text-ivory/65">{detail}</p>
+
+      {course && (
+        <div className="mt-6 grid grid-cols-1 gap-4 border-t border-gold-400/15 pt-5 md:grid-cols-2">
+          <div>
+            <p className="font-sans text-[9px] uppercase tracking-[0.4em] text-gold-300/65">
+              French
+            </p>
+            <p className="mt-1 font-serif text-base italic text-ivory/85">
+              {course.french}
+            </p>
+          </div>
+          <div>
+            <p className="font-sans text-[9px] uppercase tracking-[0.4em] text-gold-300/65">
+              Pairing
+            </p>
+            <p className="mt-1 font-serif text-base italic text-ivory/85">
+              {course.pairing}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {isBetween && (
+        <div className="mt-6 border-t border-gold-400/15 pt-5">
+          <p className="font-sans text-[9px] uppercase tracking-[0.4em] text-gold-300/65">
+            On their plates now
+          </p>
+          <p className="mt-1 font-serif text-base italic text-ivory/70">
+            Wine, water, conversation. The next course is on its way.
+          </p>
+        </div>
+      )}
+    </CardShell>
+  );
+}
+
+function activeCourse(c: { french: string; pairing: string; image: string }) {
+  return c;
 }
 
 function ChefNoteCard({ now }: { now: Date | null }) {

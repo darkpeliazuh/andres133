@@ -1,6 +1,7 @@
 "use client";
 
 import { OrnateDivider, MichelinStar } from "@/components/ui/ornaments";
+import { Newsletter } from "@/components/ui/newsletter";
 import { InstagramLogo, EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react/dist/ssr";
 
 export function Footer() {
@@ -23,7 +24,8 @@ export function Footer() {
       </div>
 
       <div className="container-luxe relative">
-        <OrnateDivider className="mb-16" />
+        <Newsletter />
+        <OrnateDivider className="mb-16 mt-20" />
       </div>
 
       <div className="container-luxe relative grid grid-cols-1 gap-12 py-4 md:grid-cols-12">
